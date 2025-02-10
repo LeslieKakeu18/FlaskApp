@@ -21,18 +21,30 @@ jobs:
         with:
           python-version: '3.9'  # spécifiez la version de Python
 
+      - name: Upgrade pip, setuptools, and wheel
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt  # assurez-vous d'avoir ce fichier
 
       - name: Run tests
         run: |
           pytest  # ou toute autre commande pour exécuter vos tests
 
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
+      - name: List files in the directory
+        run: |
+          ls -la
+
       - name: Build Docker image
         run: |
-          docker build -t leslie18/flask-app:latest .
+          docker build -f Dockerfile -t leslie18/flask-app:latest .
 
       - name: Log in to Docker Hub
         run: |
