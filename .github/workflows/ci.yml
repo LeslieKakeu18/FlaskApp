@@ -73,14 +73,15 @@ jobs:
         run: |
           docker push leslie18/ubuntu:latest
 
-      #- name: Log in to Private Registry
-       # run: |
-        #  echo "${{ secrets.PRIVATE_REGISTRY_PASSWORD }}" | docker login your-private-registry-url -u "${{ secrets.PRIVATE_REGISTRY_USERNAME }}" --password-stdin
+        #mettre toute cette partie en paramètre pour pouvoir tester
+      - name: Log in to Private Registry
+        run: |
+          echo "${{ secrets.PRIVATE_REGISTRY_PASSWORD }}" | docker login your-private-registry-url -u "${{ secrets.PRIVATE_REGISTRY_USERNAME }}" --password-stdin
 
-      #- name: Tag Docker image for Private Registry
-       # run: |
-       #   docker tag leslie18/ubuntu:latest your-private-registry-url/leslie18/ubuntu:latest
+      - name: Tag Docker image for Private Registry
+        run: |
+          docker tag leslie18/ubuntu:latest your-private-registry-url/leslie18/ubuntu:latest
 
-      #- name: Push Docker image to Private Registry
-       # run: |
-       #   docker push your-private-registry-url/leslie18/ubuntu:latest
+      - name: Push Docker image to Private Registry
+        run: |
+          docker push your-private-registry-url/leslie18/ubuntu:latest
