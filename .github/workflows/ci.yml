@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t leslie18/Ubuntu:latest .
+          docker build -t leslie18/ubuntu:latest .
 
       - name: Log in to Docker Hub
         run: |
@@ -40,4 +40,4 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push leslie18/Ubuntu:latest
+          docker push leslie18/ubuntu:latest
