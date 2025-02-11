@@ -26,10 +26,6 @@ jobs:
           python -m pip install --upgrade pip 
           pip install -r requirements.txt  # Ensure you have this file
 
-      - name: Run tests 
-        run: | 
-          pytest  # Or any other command to run your tests
-
       - name: Build Docker image
         run: |
           docker build -t leslie18/ubuntu:latest .
@@ -38,6 +34,18 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Push Docker image
+      - name: Push Docker image to Docker Hub
         run: |
           docker push leslie18/ubuntu:latest
+
+      - name: Log in to Private Registry
+        run: |
+          echo "${{ secrets.PRIVATE_REGISTRY_PASSWORD }}" | docker login your-private-registry-url -u "${{ secrets.PRIVATE_REGISTRY_USERNAME }}" --password-stdin
+
+      - name: Tag Docker image for Private Registry
+        run: |
+          docker tag leslie18/ubuntu:latest your-private-registry-url/leslie18/ubuntu:latest
+
+      - name: Push Docker image to Private Registry
+        run: |
+          docker push your-private-registry-url/leslie18/ubuntu:latest
